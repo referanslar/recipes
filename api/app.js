@@ -51,13 +51,15 @@ app.use((req, res, next) => {
 });
 
 /* This middleware function is executed whenever an error occurs during the processing of a request. */
-app.use((error, req, res) => {
+app.use((error, req, res, next) => {
   const errorStatus = error.statusCode || 500;
   const errorMessage = error.message || "Internal Server Error";
 
   res.status(errorStatus).json({
     message: errorMessage,
   });
+
+  next();
 });
 
 export default app;
